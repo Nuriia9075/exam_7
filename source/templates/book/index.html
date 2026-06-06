@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="border rounded-3 my-4 d-flex justify-content-between align-items-center p-3 bg-light shadow-sm">
+    <h1 class="h3 mb-0 fw-bold text-dark">Записи гостевой книги</h1>
+    <a class="btn btn-primary px-4" href="{% url 'create' %}">
+        <i class="fa-solid fa-plus me-2"></i>Добавить
+    </a>
+</div>
+<div class="row g-4">
+    {% for book in books %}
+        <div class="col-md-6 col-lg-4 d-flex">
+            <div class="card w-100 shadow-sm h-100 d-flex flex-column justify-content-between">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h5 class="card-title fw-bold text-truncate mb-0" style="max-width: 70%;">
+                            {{ book.author }}
+                        </h5>
+                        <small class="text-muted fs-7">{{ book.created_at|date:"d.m.Y" }}</small>
+                    </div>
+                    <h6 class="card-subtitle mb-3 text-muted text-truncate">{{ book.email }}</h6>
+                    <p class="card-text text-secondary" style="white-space: pre-line;">{{ book.content }}</p>
+                </div>
+                <div class="card-footer bg-transparent border-0 text-end pb-3">
+                    <hr class="text-muted my-2">
+                    <a href="{% url 'update' book.pk %}" class="btn btn-sm btn-outline-warning me-1">
+                        <i class="fa-regular fa-pen-to-square me-1"></i>Изменить
+                    </a>
+                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#book-{{ book.pk }}-Modal">
+                        <i class="fa-regular fa-trash-can me-1"></i>Удалить
+                    </button>
+                    {% include 'partial/book_delete_modal.html' with book=book %}
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="col-12 text-center my-5">
+            <p class="text-muted fs-5">Записей пока нет. Будьте первым, кто оставит отзыв!</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
