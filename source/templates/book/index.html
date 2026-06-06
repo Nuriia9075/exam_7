@@ -29,7 +29,7 @@
                     <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#book-{{ book.pk }}-Modal">
                         <i class="fa-regular fa-trash-can me-1"></i>Удалить
                     </button>
-                    {% include 'partial/book_delete_modal.html' with book=book %}
+                    {% include 'book/partial/book_delete_modal.html' with book=book %}
                 </div>
             </div>
         </div>
