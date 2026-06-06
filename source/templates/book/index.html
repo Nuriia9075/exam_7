@@ -24,18 +24,14 @@
                 <div class="card-footer bg-transparent border-0 text-end pb-3">
                     <hr class="text-muted my-2">
                     <a href="{% url 'update' book.pk %}" class="btn btn-sm btn-outline-warning me-1">
-                        <i class="fa-regular fa-pen-to-square me-1"></i>Изменить
+                        <i class="fa-regular fa-pen-to-square me-1"></i>
                     </a>
                     <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#book-{{ book.pk }}-Modal">
-                        <i class="fa-regular fa-trash-can me-1"></i>Удалить
+                        <i class="fa-solid fa-trash-can"></i>
                     </button>
                     {% include 'book/partial/book_delete_modal.html' with book=book %}
                 </div>
             </div>
-        </div>
-    {% empty %}
-        <div class="col-12 text-center my-5">
-            <p class="text-muted fs-5">Записей пока нет. Будьте первым, кто оставит отзыв!</p>
         </div>
     {% endfor %}
 </div>

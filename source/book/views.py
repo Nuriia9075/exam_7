@@ -5,8 +5,13 @@ from book.models import BookGuest
 
 # Create your views here.
 def index(request):
-    books = BookGuest.objects.filter(status = "active").order_by('-created_at')
-    return render(request, "book/index.html", {'books': books})
+    enter_author = request.GET.get('search')
+    if enter_author:
+        books =(BookGuest.objects.filter(status="active", author__icontains= enter_author).order_by('created_at'))
+        return render(request, "book/index.html", {'books': books})
+    else:
+        books = BookGuest.objects.filter(status = "active").order_by('-created_at')
+        return render(request, "book/index.html", {'books': books})
 
 
 def add_book(request):
