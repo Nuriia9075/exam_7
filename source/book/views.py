@@ -22,8 +22,8 @@ def add_book(request):
 def delete_book(request,pk):
     book = get_object_or_404(BookGuest, pk= pk)
     if request.method == 'POST':
-        enter_author = request.POST.get('author')
-        if book.author == enter_author:
+        enter_email = request.POST.get('email')
+        if book.email == enter_email:
             book.delete()
             return redirect('books')
         else:
@@ -32,5 +32,13 @@ def delete_book(request,pk):
     return redirect('books')
 
 
-def update_book(request):
-    pass
+def update_book(request, pk, *args, **kwargs):
+    book = get_object_or_404(BookGuest, pk=pk)
+    if request.method == 'POST':
+        form = BookGuestForm(request.POST, instance=book)
+        if form.is_valid():
+            form.save()
+            return redirect('books')
+    else:
+        form = BookGuestForm(instance=book)
+    return render(request, 'book/book_update.html', {'form': form, 'book': book})

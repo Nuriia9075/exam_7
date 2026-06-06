@@ -1,0 +1,24 @@
+    <div class="modal fade" id="book-{{ book.pk }}-Modal" tabindex="-1" aria-labelledby="bookModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="bookModalLabel">Удаление отзыва {{ book.title }}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Введите почту для удаления почту </p>
+                    <form action="{% url 'delete' book.pk %}" id="delete-form-{{ book.pk }}" method="post">
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="basic-addon1">@</span>
+                          <input type="text" name="email" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
+                        </div>
+                        {% csrf_token %}
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-outline-warning me-1" data-bs-dismiss="modal">Отмена</button>
+                    <button type="submit" class="btn btn-sm btn-outline-danger" form="delete-form-{{ book.pk }}">Удалить</button>
+                </div>
+            </div>
+        </div>
+    </div>
